@@ -89,6 +89,46 @@ _)      \.___.,|     .'
 [ENTER YOUR NAME]:
 ```
 
+## Connecting from Multiple Computers
+
+The server listens on all available network interfaces, so any device on the same network can connect.
+
+### Setup
+
+1. **Build and run the server** on Computer A (the host):
+   ```bash
+   make build
+   ./net-cat 8989
+   ```
+
+2. **Find the server's IP address** on Computer A:
+   ```bash
+   hostname -I
+   # Example output: 192.168.1.42
+   ```
+
+3. **Connect from other computers** (Computer B, C, etc.):
+   ```bash
+   nc 192.168.1.42 8989
+   ```
+
+4. **Enter a unique name** when prompted and start chatting.
+
+### Requirements
+
+- All computers must be on the **same LAN** (WiFi/Ethernet).
+- The server's firewall must allow the chosen port (default 8989):
+  ```bash
+  # Ubuntu/Debian:
+  sudo ufw allow 8989/tcp
+
+  # Fedora/RHEL:
+  sudo firewall-cmd --add-port=8989/tcp --permanent
+  sudo firewall-cmd --reload
+  ```
+- The server supports up to **10 simultaneous clients**.
+- Each client must use a **unique name**; duplicates are rejected.
+
 ## Client Commands
 
 | Command | Description |
